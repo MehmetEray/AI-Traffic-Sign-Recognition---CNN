@@ -12,13 +12,13 @@ import cv2
 
 data = []
 labels = []
-cur_path = "/Users/mehmeteraysurmeli/Downloads/"
 EPOCHS = 10
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
 TEST_SIZE = 0.4
-cwd = os.getcwd()
+cur_path = os.getcwd()
+
 
 def main():
     global labels, data
@@ -101,17 +101,17 @@ def get_model(X_train, y_train, X_test, y_test):
     print("=========================================================")
     # plot2(history)
 
-    #img = data[3]
-    #img_array = keras.preprocessing.image.img_to_array(img)
-    #img_array = tf.expand_dims(img_array, 0)  # Create a batch
+    # img = data[3]
+    # img_array = keras.preprocessing.image.img_to_array(img)
+    # img_array = tf.expand_dims(img_array, 0)  # Create a batch
 
-    #predictions = model.predict(img_array)
-    #score = tf.nn.softmax(predictions[0])
+    # predictions = model.predict(img_array)
+    # score = tf.nn.softmax(predictions[0])
 
-    #print(
-     #   "This image most likely belongs to {} with a {:.2f} percent confidence."
-      #      .format(labels[np.argmax(score)], 100 * np.max(score))
-    #)
+    # print(
+    #   "This image most likely belongs to {} with a {:.2f} percent confidence."
+    #      .format(labels[np.argmax(score)], 100 * np.max(score))
+    # )
 
 
 def plot1(history):
