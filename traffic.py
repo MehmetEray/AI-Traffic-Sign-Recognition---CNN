@@ -18,7 +18,7 @@ IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
 TEST_SIZE = 0.4
-
+cwd = os.getcwd()
 
 def main():
     global labels, data
