@@ -12,7 +12,7 @@ import cv2
 
 data = []
 labels = []
-EPOCHS = 10
+EPOCHS = 5
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
@@ -98,7 +98,7 @@ def get_model(X_train, y_train, X_test, y_test):
     model.save("my_model_cnn.h5")
 
     # plot1(history)
-    print("=========================================================")
+    # print("=================================================================================")
     # plot2(history)
 
     # img = data[3]
