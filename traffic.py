@@ -4,8 +4,9 @@ import os
 import sys
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
-EPOCHS = 1
+EPOCHS = 10
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
@@ -25,6 +26,10 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
+    #show some images from train data
+    showImages(x_train)
+
+    #close window of figure for continue
 
     # Get a compiled neural network
     model = get_model()
@@ -32,6 +37,8 @@ def main():
     # Fit model on training data
     model.fit(x_train, y_train, epochs=EPOCHS)
 
+    plot1(model.fit(x_train, y_train, epochs=EPOCHS))
+    plot2(model.fit(x_train, y_train, epochs=EPOCHS))
     # Evaluate neural network performance
     model.evaluate(x_test, y_test, verbose=2)
 
@@ -125,6 +132,61 @@ def get_model():
 
     # return final compiled model
     return model
+
+
+def showImages(train_images):
+    for i in range(25):
+        plt.subplot(5, 5, i + 1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(train_images[i], cmap=plt.cm.binary)
+        # which is why you need the extra index
+    plt.show()
+
+def plot1(history):
+    # plotting graphs for accuracy
+    plt.figure(0)
+    plt.plot(history.history['accuracy'], label='training accuracy')
+    plt.title('Accuracy')
+    plt.xlabel('epochs')
+    plt.ylabel('accuracy')
+    plt.ylim([0.5, 1])
+    plt.legend(loc='lower right')
+    plt.show()
+
+    plt.figure(1)
+    plt.plot(history.history['loss'], label='training loss')
+    plt.plot(history.history['val_loss'], label='val loss')
+    plt.title('Loss')
+    plt.xlabel('epochs')
+    plt.ylabel('loss')
+    plt.ylim([0.5, 1])
+    plt.legend(loc='lower right')
+    plt.show()
+
+
+def plot2(history):
+    acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
+
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+
+    epochs_range = range(EPOCHS)
+
+    plt.figure(figsize=(8, 8))
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs_range, acc, label='Training Accuracy')
+    plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+    plt.legend(loc='lower right')
+    plt.title('Training and Validation Accuracy')
+
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs_range, loss, label='Training Loss')
+    plt.legend(loc='upper right')
+    plt.title('Training and Validation Loss')
+    plt.show()
 
 
 if __name__ == "__main__":
