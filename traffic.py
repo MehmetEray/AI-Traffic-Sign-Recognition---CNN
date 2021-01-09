@@ -26,8 +26,12 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
+    print(images.shape)
+    print(x_train.shape)
+    print(x_test.shape)
     #show some images from train data
     showImages(x_train)
+
 
     #close window of figure for continue
 
@@ -37,16 +41,22 @@ def main():
     # Fit model on training data
     model.fit(x_train, y_train, epochs=EPOCHS)
 
-    plot1(model.fit(x_train, y_train, epochs=EPOCHS))
-    plot2(model.fit(x_train, y_train, epochs=EPOCHS))
+    #plot1(model.fit(x_train, y_train, epochs=EPOCHS))
+
+    #plot2(model.fit(x_train, y_train, epochs=EPOCHS))
     # Evaluate neural network performance
     model.evaluate(x_test, y_test, verbose=2)
 
+
     # Save model to file
-    if len(sys.argv) == 3:
-        filename = sys.argv[2]
-        model.save(filename)
-        print(f"Model saved to {filename}.")
+    #if len(sys.argv) == 3:
+     #   filename = sys.argv[2]
+      #  model.save(filename)
+       # print(filename)
+
+        #print(f"Model saved to {filename}.")
+    model.save("traffic.h5")
+
 
 
 def load_data(data_dir):
@@ -144,6 +154,7 @@ def showImages(train_images):
         # which is why you need the extra index
     plt.show()
 
+
 def plot1(history):
     # plotting graphs for accuracy
     plt.figure(0)
@@ -191,3 +202,4 @@ def plot2(history):
 
 if __name__ == "__main__":
     main()
+
