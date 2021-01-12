@@ -10,7 +10,7 @@ EPOCHS = 3
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
-TEST_SIZE = 0.3
+TEST_SIZE = 0.1
 
 
 def main():
@@ -26,51 +26,49 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
+
     print(images.shape)
     print(x_train.shape)
     print(x_test.shape)
-    #show some images from train data
+    # show some images from train data
     showImages(x_train)
 
-
-    #close window of figure for continue
+    # close window of figure for continue
 
     # Get a compiled neural network
     model = get_model()
 
-    #callbacks start
+    # callbacks start
 
-    callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
-    checkpoint_filepath = '/tmp/checkpoint'
+    callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3, restore_best_weights=True)
+    checkpoint_filepath = 'saved_models/'
     model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
         filepath=checkpoint_filepath,
-        save_weights_only=True,
+        save_weights_only=False,
         monitor='val_accuracy',
         mode='max',
         save_best_only=True)
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir="./logs")
 
-    #callbacks stop
+    # callbacks stop
 
     # Fit model on training data
-    model.fit(x_train, y_train, epochs=EPOCHS,callbacks=[callback,model_checkpoint_callback,tensorboard_callback])
+    model.fit(x_train, y_train, epochs=EPOCHS, validation_split=0.2, callbacks=[callback, model_checkpoint_callback, tensorboard_callback])
 
-    #plot1(model.fit(x_train, y_train, epochs=EPOCHS))
+    # plot1(model.fit(x_train, y_train, epochs=EPOCHS))
 
-    #plot2(model.fit(x_train, y_train, epochs=EPOCHS))
+    # plot2(model.fit(x_train, y_train, epochs=EPOCHS))
     # Evaluate neural network performance
     model.evaluate(x_test, y_test, verbose=2)
 
-
     # Save model to file
-    #if len(sys.argv) == 3:
-     #   filename = sys.argv[2]
-      #  model.save(filename)
-       # print(filename)
+    # if len(sys.argv) == 3:
+    #   filename = sys.argv[2]
+    #  model.save(filename)
+    # print(filename)
 
-        #print(f"Model saved to {filename}.")
-    model.save("traffic3c.h5")
-
+    # print(f"Model saved to {filename}.")
+    model.save("traffic3cval.h5")
 
 
 def load_data(data_dir):
@@ -216,4 +214,3 @@ def plot2(history):
 
 if __name__ == "__main__":
     main()
-

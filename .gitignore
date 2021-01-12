@@ -6,7 +6,8 @@ __pycache__/
 # C extensions
 *.so
 gtsrb/
-
+logs/
+saved_models/
 # Distribution / packaging
 .Python
 build/
