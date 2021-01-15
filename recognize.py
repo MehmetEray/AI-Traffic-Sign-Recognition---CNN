@@ -58,7 +58,7 @@ classes = {1: 'Speed limit (20km/h)',
 top = tk.Tk()
 top.geometry('800x600')
 top.title('Traffic sign classification')
-top.configure(background='#CDCDCD')
+top.configure(background='#0339a1')
 
 label = Label(top, background='#CDCDCD', font=('arial', 15, 'bold'))
 sign_image = Label(top)
@@ -73,12 +73,12 @@ def classify(file_path):
     pred = np.argmax(model.predict([image]))
     sign = classes[pred + 1]
     print(sign)
-    label.configure(foreground='#011638', text=sign)
+    label.configure(foreground='#0339a1', text=sign)
 
 
 def show_classify_button(file_path):
     classify_b = Button(top, text="Classify Image", command=lambda: classify(file_path), padx=10, pady=5)
-    classify_b.configure(background='#364156', foreground='white', font=('arial', 10, 'bold'))
+    classify_b.configure(background='#0339a1', foreground='white', font=('arial', 10, 'bold'))
     classify_b.place(relx=0.79, rely=0.46)
 
 
@@ -103,7 +103,7 @@ upload.configure(background='#364156', foreground='white', font=('arial', 10, 'b
 upload.pack(side=BOTTOM, pady=50)
 sign_image.pack(side=BOTTOM, expand=True)
 label.pack(side=BOTTOM, expand=True)
-heading = Label(top, text="Know Your Traffic Sign", pady=20, font=('arial', 20, 'bold'))
+heading = Label(top, text="Recognize Your Traffic Sign", pady=20, font=('arial', 20, 'bold'))
 heading.configure(background='#CDCDCD', foreground='#364156')
 heading.pack()
 top.mainloop()

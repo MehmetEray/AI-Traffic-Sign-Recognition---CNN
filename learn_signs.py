@@ -61,12 +61,6 @@ def main():
     # Evaluate neural network performance
     model.evaluate(x_test, y_test, verbose=2)
 
-    # Save model to file
-    # if len(sys.argv) == 3:
-    #   filename = sys.argv[2]
-    #  model.save(filename)
-    # print(filename)
-
     # print(f"Model saved to {filename}.")
     model.save("traffic3cval.h5")
 
@@ -101,19 +95,7 @@ def load_data(data_dir):
 
 
 def get_model():
-    """The model has 6 "2D Convolutional" and 1 "2D MaxPooling" layer,
-    besides these; Dropout added after each Convolution and Pooling layer
-    to improve learning quality for each batch, after the all process,
-    BatchNormalization layer has been added before the Dense layers.
-    Model type is the classic Tensorflow Sequential model.
 
-    - Model Summary:
-        After the convolutions, model's input (which is an image) shape
-        converted from (30, 30, 3) to the shape of (14, 14, 16). At this
-        point we apply "Flatten" function to convert feature maps into the
-        shape of 1D array (shape of = (1, 3136)). After the flatten layer;
-        adding 4 layers of "Dense" at the end of the model for making
-        the final classification process."""
 
     # main Tensorflow Sequential model object
     model = tf.keras.models.Sequential([
