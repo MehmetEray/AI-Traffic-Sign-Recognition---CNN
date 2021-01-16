@@ -1,1 +1,2 @@
-# python
+# AI TRAFFIC SIGN RECOGNITION with TENSORFLOW
+Teammate is Cem Adar
